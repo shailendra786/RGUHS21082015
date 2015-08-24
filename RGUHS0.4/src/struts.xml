@@ -610,6 +610,6 @@
 			<result name="home" type="redirect">getInstDues</result>
 		</action>
 	</package>
-<!--Testing   -->
+
 
 </struts>
