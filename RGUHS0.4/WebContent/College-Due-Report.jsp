@@ -286,7 +286,7 @@
 											<%
 												int i = 1;
 											%>
-											<s:iterator value="transactionDetailsForReport">
+											<s:iterator value="dueFeesSet">
 												<tr>
 													<td><span style="margin-left: 10px;"><%=i%></span></td>
 													<td><span style="margin-left: 10px;"><s:property

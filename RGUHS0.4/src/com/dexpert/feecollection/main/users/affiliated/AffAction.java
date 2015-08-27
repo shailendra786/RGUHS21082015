@@ -565,6 +565,7 @@ public class AffAction extends ActionSupport {
 		String profile = (String) ses.getAttribute("sesProfile");
 		if (profile.contentEquals("Parent")) {
 			Integer universityId = (Integer) ses.getAttribute("sesId");
+			log.info("university id is="+universityId);
 			List<Integer> institeIdes = parDAO.getIdesOfAllCollege(universityId);
 			affBeans = affDao.getAllCollege(institeIdes);
 			log.info("Aff Bean List" + affBeans.size());
@@ -577,9 +578,11 @@ public class AffAction extends ActionSupport {
 		}
 		// Get id from session
 		Integer id = (Integer) ses.getAttribute("sesId");
+		log.info("college id is="+id);
 		// get the affBean from db to get set of due
 		affBean = affDao.getCollegeDues(id);
 		dueFeesSet = affBean.getDueFeesSet();
+		log.info("size of due fees set="+dueFeesSet.size());
 		return SUCCESS;
 	}
 
