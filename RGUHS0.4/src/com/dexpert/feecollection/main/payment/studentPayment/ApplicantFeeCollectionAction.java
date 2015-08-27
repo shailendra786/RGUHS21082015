@@ -159,7 +159,7 @@ public class ApplicantFeeCollectionAction extends ActionSupport {
 		log.info("Session Started");
 		String enrolId = request.getParameter("enrollId");
 		appBean1 = appDAO.getUserDetail(enrolId);
-		String returnUrl = "http://localhost:8080/RGUHS0.0.3.3/ReturnPage.jsp";
+		String returnUrl = "http://localhost:8080/RGUHS0.4/ReturnPage.jsp";
 		if (appBean1 != null) {
 
 			// tran.setDueString(dueString);
@@ -173,7 +173,7 @@ public class ApplicantFeeCollectionAction extends ActionSupport {
 			tran.setTransDate(date);
 			tran.setTxnId(txnId);
 			String user = appBean1.getAplFirstName().concat(" ").concat(appBean1.getAplLstName());
-			url = "http://localhost:2015/SabPaisa?Name=" + user + "&amt=" + fee + "&RollNo="
+			url = "http://49.50.72.228:8080/SabPaisa?Name=" + user + "&amt=" + fee + "&RollNo="
 					+ appBean1.getEnrollmentNumber() + "&Contact=" + appBean1.getAplMobilePri() + "&Email="
 					+ appBean1.getAplEmail() + "&client=RGUHS" + "&ru=" + returnUrl + "&hmap=" + "&txnId=" + txnId;
 
@@ -189,7 +189,7 @@ public class ApplicantFeeCollectionAction extends ActionSupport {
 			tran.setTransDate(date);
 			tran.setTxnId(txnId);
 			String user = request.getParameter("firstName").concat(request.getParameter("lstName"));
-			url = "http://localhost:2015/SabPaisa?Name=" + user + "&amt=" + fee + "&RollNo=" + enrolId + "&Contact="
+			url = "http://49.50.72.228:8080/SabPaisa?Name=" + user + "&amt=" + fee + "&RollNo=" + enrolId + "&Contact="
 					+ request.getParameter("contact") + "&Email=" + request.getParameter("email") + "&client=RGUHS"
 					+ "&ru=" + returnUrl + "&hmap=" + "&txnId=" + txnId;
 
@@ -248,7 +248,7 @@ public class ApplicantFeeCollectionAction extends ActionSupport {
 		//
 		dao.insertPaymentDetails(tran);
 
-		String returnUrl = "http://localhost:8080/RGUHS0.0.3.3/ReturnPage.jsp";
+		String returnUrl = "http://49.50.72.228:8080/RGUHS0.4/ReturnPage.jsp";
 
 		HashMap<String, String> hashMap = new HashMap<String, String>();
 
@@ -263,7 +263,7 @@ public class ApplicantFeeCollectionAction extends ActionSupport {
 		// + enrollmentId + "&client=SGI" + "&ru=" +
 		// returnUrl+"&Contact="+mobileNumberPrimary;
 
-		String url = "http://localhost:2015/SabPaisa?Name=" + affBean.getInstName() + "&amt=" + fee + "&txnId=" + txnId
+		String url = "http://49.50.72.228:8080/SabPaisa?Name=" + affBean.getInstName() + "&amt=" + fee + "&txnId=" + txnId
 				+ "&RollNo=" + null + "&client=RGU" + "&ru=" + returnUrl + "&Contact=" + affBean.getContactNumber();
 
 		response.sendRedirect(url);
