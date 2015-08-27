@@ -140,7 +140,7 @@ public class AffDAO {
 		log.info("list of Ides  " + ides);
 		Session session = factory.openSession();
 		Criteria criteria = session.createCriteria(AffBean.class);
-		List<AffBean> affBeansList = criteria.add(Restrictions.in("instId", ides)).setResultTransformer(Criteria.ROOT_ENTITY).list();
+		List<AffBean> affBeansList = criteria.add(Restrictions.in("instId", ides)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		session.close();
 		return affBeansList;
 	}
@@ -535,7 +535,7 @@ public class AffDAO {
 		List<TransactionBean> transactionDetails = null;
 		Session session = factory.openSession();
 		Criteria criteria = session.createCriteria(TransactionBean.class);
-		if (superAdmin != null) {
+		if (superAdmin.contentEquals("SU")) {
 			transactionDetails = criteria.list();
 		} else {
 			transactionDetails = criteria.add(Restrictions.eq("insId", instituteId)).list();

@@ -564,8 +564,9 @@ public class AffAction extends ActionSupport {
 	public String collegeDueReport() {
 		String profile = (String) ses.getAttribute("sesProfile");
 		if (profile.contentEquals("Parent")) {
-			Integer universityId = (Integer) ses.getAttribute("sesId");
-			log.info("university id is="+universityId);
+			LoginBean loginUser = (LoginBean) ses.getAttribute("loginUserBean");
+			Integer universityId = loginUser.getParBean().getParInstId();
+			log.info("university id is=" + universityId);
 			List<Integer> institeIdes = parDAO.getIdesOfAllCollege(universityId);
 			affBeans = affDao.getAllCollege(institeIdes);
 			log.info("Aff Bean List" + affBeans.size());
@@ -578,11 +579,11 @@ public class AffAction extends ActionSupport {
 		}
 		// Get id from session
 		Integer id = (Integer) ses.getAttribute("sesId");
-		log.info("college id is="+id);
+		log.info("college id is=" + id);
 		// get the affBean from db to get set of due
 		affBean = affDao.getCollegeDues(id);
 		dueFeesSet = affBean.getDueFeesSet();
-		log.info("size of due fees set="+dueFeesSet.size());
+		log.info("size of due fees set=" + dueFeesSet.size());
 		return SUCCESS;
 	}
 
@@ -687,9 +688,12 @@ public class AffAction extends ActionSupport {
 	}
 
 	public String getInsTransactionDetails() {
-		Integer idOfLoginer = (Integer) ses.getAttribute("sesId");
+		;
 		String profile = (String) ses.getAttribute("sesProfile");
+		Integer idOfLoginer = null;
 		if (profile.contentEquals("Parent")) {
+			LoginBean loginUser = (LoginBean) ses.getAttribute("loginUserBean");
+			idOfLoginer = loginUser.getParBean().getParInstId();
 			ParBean parBean = affDao.getTrasactionReportForUniversity(idOfLoginer);
 			List<Integer> allCollegeId = parDAO.getIdesOfAllCollege(idOfLoginer);
 			transactionDetailsForReport = affDao.getTransactionOfColleges(allCollegeId);
@@ -699,15 +703,15 @@ public class AffAction extends ActionSupport {
 
 		} else if (profile.contentEquals("SU")) {
 			transactionDetailsForReport = affDao.getAllTransactionRecordsForSuper();
-			
-			log.info("List Size ::"+transactionDetailsForReport.size());
+			log.info("List Size ::" + transactionDetailsForReport.size());
 			return SUCCESS;
 
-		}
-
+		}else{
+        idOfLoginer=(Integer)ses.getAttribute("sesId");
 		transactionDetailsForReport = affDao.getTransactionDetails(idOfLoginer, profile);
+		log.info("inside else block%%%%%%%%%");
 		return SUCCESS;
-	}
+	}}
 
 	// End of Action Methods
 	// ---------------------------------------------------
