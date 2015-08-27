@@ -59,7 +59,7 @@
 			
 			
 			setTimeout(function(){ 
-				alert("hello");
+				
 				window.location="RetrieveUserSession?RPS=<%=msg%>&txnID=<%=transId%>&payMode=<%=paymentMode%>"
 				
 				

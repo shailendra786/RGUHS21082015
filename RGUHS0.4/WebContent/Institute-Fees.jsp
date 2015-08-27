@@ -290,7 +290,7 @@ ment-Summary.html">Proceed To
 													<td><s:property value="lateDate" default="not Set" /></td>
 													<td class="center"><s:set var="dueAmt">
 															<s:property value="dueBean.netDue" default="0" />
-														</s:set> <s:if test='%{#dueAmt >"0"&&calcFlag==1}'>
+														</s:set> <s:if test='%{#dueAmt >0 &&calcFlag==1}'>
 
 															<input type="button" class="btn btn-danger"
 																onclick="openPaymentGateway('<s:property value="dueBean.netDue" default="0"  />','<s:property value="feeName" />')"
