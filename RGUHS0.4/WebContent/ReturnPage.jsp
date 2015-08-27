@@ -5,62 +5,66 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>SGI</title>
+<title>RGUHS</title>
 </head>
 <body onload="waitSubmit()">
 	<h2></h2>
 	<%
 		String msg = request.getParameter("RPS");
-	String transId=request.getParameter("txnId");
-	String paymentMode=request.getParameter("PayMode");
+		String transId = request.getParameter("txnId");
+		String paymentMode = request.getParameter("PayMode");
 	%>
 	<%
 		if (msg.equals("0")) {
 	%>
 
-	<div align="center">Congratulations, your payment has been successful, please click 'Back' button to go to your home page...</div>
+	<div align="center">Congratulations, your payment has been
+		successful, please click 'Back' button to go to your home page...</div>
 	<%
 		}
-		
+
 		else {
-			
-			if(msg.equals("-99")){
-				
-				%>
-				<div align="center">You have cancelled the transaction, please click 'Back' button to go to your home page...</div>
 
-				<%				
-				
-			}
-			else {
+			if (msg.equals("-99")) {
 	%>
-	<div align="center">Sorry, your transaction has been declined due to some
-		reason, please click 'Back' button to go to your home page...</div>
+	<div align="center">You have cancelled the transaction, please
+		click 'Back' button to go to your home page...</div>
 
 	<%
-		  }
+		} else {
+	%>
+	<div align="center">Sorry, your transaction has been declined due
+		to some reason, please click 'Back' button to go to your home page...</div>
+
+	<%
+		}
 		}
 	%>
-	
-			<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-			aria-labelledby="myModalLabel" aria-hidden="true">
 
-				<center>
-					<div style="text-align: center;" class="btn btn-default">
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
 
-						<a href="RetrieveUserSession?RPS=<%=msg%>&txnID=<%=transId%>">Back </a>
-						
-					</div>
-				</center>
+		<%-- <center>
+			<div style="text-align: center;" class="btn btn-default">
 
-	<script type="text/javascript">
+				<a
+					href="RetrieveUserSession?RPS=<%=msg%>&txnID=<%=transId%>&payMode=<%=paymentMode%>">Back
+				</a>
+
+			</div>
+		</center> --%>
+
+		<script type="text/javascript">
 		function waitSubmit() {
-		          alert("inside method");
-		          var query="?RPS="+'<%=msg%>'+"&txnID="+'<%=transId%>'+"&paymentMode="+'<%=paymentMode%>'+"";
-		          alert(query);
-				window.location = "ResponseAction"+query;
+			
+			
+			setTimeout(function(){ 
+				alert("hello");
+				window.location="RetrieveUserSession?RPS=<%=msg%>&txnID=<%=transId%>&payMode=<%=paymentMode%>"
+				
+				
+			}, 3000);
 		}
 	</script>
-
 </body>
 </html>

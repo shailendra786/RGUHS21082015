@@ -33,8 +33,11 @@ public class ApplicantFeeCollectionAction extends ActionSupport {
 	HttpServletRequest request = ServletActionContext.getRequest();
 	HttpServletResponse response = ServletActionContext.getResponse();
     ServletContext context=request.getServletContext();
-    String clientUrl=context.getInitParameter("localUrl");
-    String sabpaisaUrl=context.getInitParameter("saipaisaUrl");
+    
+    public String SabPaisaURL = "localhost:2015";
+	public String returnUrl = "http://localhost:8080/RGUHS0.4/ReturnPage.jsp";
+	String clientFailureUrl = "http://localhost:8080/RGUHS0.4/Login.jsp";
+
 	HttpSession httpSession = request.getSession();
 	static Logger log = Logger.getLogger(ApplicantFeeCollectionAction.class.getName());
 
@@ -164,7 +167,6 @@ public class ApplicantFeeCollectionAction extends ActionSupport {
 		log.info("Session Started");
 		String enrolId = request.getParameter("enrollId");
 		appBean1 = appDAO.getUserDetail(enrolId);
-		String returnUrl = clientUrl+"/ReturnPage.jsp";
 		if (appBean1 != null) {
 
 			// tran.setDueString(dueString);
@@ -178,9 +180,9 @@ public class ApplicantFeeCollectionAction extends ActionSupport {
 			tran.setTransDate(date);
 			tran.setTxnId(txnId);
 			String user = appBean1.getAplFirstName().concat(" ").concat(appBean1.getAplLstName());
-			url = sabpaisaUrl+"?Name=" + user + "&amt=" + fee + "&RollNo="
+			url = "http://"+SabPaisaURL+"/SabPaisa?Name=" + user + "&amt=" + fee + "&RollNo="
 					+ appBean1.getEnrollmentNumber() + "&Contact=" + appBean1.getAplMobilePri() + "&Email="
-					+ appBean1.getAplEmail() + "&client=RGUHS" + "&ru=" + returnUrl + "&hmap=" + "&txnId=" + txnId;
+					+ appBean1.getAplEmail() + "&client=RGUHS" + "&ru=" + returnUrl + "&hmap=" + "&txnId=" + txnId+"&failureURL="+clientFailureUrl;
 
 		} else {
 			// tran.setDueString(dueString);
@@ -194,9 +196,9 @@ public class ApplicantFeeCollectionAction extends ActionSupport {
 			tran.setTransDate(date);
 			tran.setTxnId(txnId);
 			String user = request.getParameter("firstName").concat(request.getParameter("lstName"));
-			url = sabpaisaUrl+"?Name=" + user + "&amt=" + fee + "&RollNo=" + enrolId + "&Contact="
+			url = "http://"+SabPaisaURL+"/SabPaisa?Name=" + user + "&amt=" + fee + "&RollNo=" + enrolId + "&Contact="
 					+ request.getParameter("contact") + "&Email=" + request.getParameter("email") + "&client=RGUHS"
-					+ "&ru=" + returnUrl + "&hmap=" + "&txnId=" + txnId;
+					+ "&ru=" + returnUrl + "&hmap=" + "&txnId=" + txnId+"&failureURL="+clientFailureUrl;
 
 		}
 
@@ -253,7 +255,7 @@ public class ApplicantFeeCollectionAction extends ActionSupport {
 		//
 		dao.insertPaymentDetails(tran);
 
-		String returnUrl = clientUrl+"/ReturnPage.jsp";
+		
 
 		HashMap<String, String> hashMap = new HashMap<String, String>();
 
@@ -263,20 +265,13 @@ public class ApplicantFeeCollectionAction extends ActionSupport {
 		httpSession.setAttribute("hmap", hashMap);
 		httpSession.getServletContext().setAttribute(txnId, httpSession);
 
-		// String url = "http://49.50.72.228:8080/SabPaisa?Name=" + name +
-		// "&amt=" + fee + "&txnId=" + txnId + "&RollNo="
-		// + enrollmentId + "&client=SGI" + "&ru=" +
-		// returnUrl+"&Contact="+mobileNumberPrimary;
+		
 
-		String url = sabpaisaUrl+"?Name=" + affBean.getInstName() + "&amt=" + fee + "&txnId=" + txnId
-				+ "&RollNo=" + null + "&client=RGU" + "&ru=" + returnUrl + "&Contact=" + affBean.getContactNumber();
+		String url = "http://"+SabPaisaURL+"/SabPaisa?Name=" + affBean.getInstName() + "&amt=" + fee + "&txnId=" + txnId
+				+ "&RollNo=" + null + "&client=RGUHS" + "&ru=" + returnUrl + "&Contact=" + affBean.getContactNumber()+"&failureURL="+clientFailureUrl;
 
 		response.sendRedirect(url);
 
-		/*
-		 * String url = "http://49.50.72.228:8080/SabPaisa?name=" + user +
-		 * "&amount=" + fee; response.sendRedirect(url);
-		 */
 
 	}
 

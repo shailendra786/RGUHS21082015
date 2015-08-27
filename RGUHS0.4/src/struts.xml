@@ -370,6 +370,8 @@
 			method="RetrieveSessionUpdateTrans">
 			<result name="home" type="redirect">getInstDues</result>
 			<result name="quickPay" type="redirect">StudentQuickPayMod</result>
+		
+			<result name="error" type="redirect">Login.jsp</result>
 		</action>
 
 	</package>
