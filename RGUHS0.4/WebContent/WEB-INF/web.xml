@@ -12,6 +12,23 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	    
 	</welcome-file-list>
 	<display-name>Fee Collection Portal</display-name>
+
+<context-param>
+    <param-name>localUrl</param-name>
+    <param-value>http://localhost:8080/RGUHS0.4</param-value>
+</context-param>
+<context-param>
+    <param-name>saipaisaUrl</param-name>
+    <param-value>http://localhost:2015/SabPaisa</param-value>
+</context-param>
+<!-- <context-param>
+    <param-name>localUrl</param-name>
+    <param-value>http://49.50.72.228:8080/RGUHS0.4</param-value>
+</context-param>
+<context-param>
+    <param-name>saipaisaUrl</param-name>
+    <param-value>http://49.50.72.228:8080/SabPaisa</param-value>
+</context-param> -->
   <servlet>
     <servlet-name>HibernateStartupUtility</servlet-name>
     <servlet-class>com.dexpert.feecollection.main.HibernateStartUpUtility</servlet-class>
