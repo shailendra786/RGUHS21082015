@@ -180,6 +180,16 @@
 							<%
 								}
 							%>
+							
+							<%
+								if (profile.contentEquals("SU")){
+							%><li><a class="ajax-link" href="getCollegeList"><i
+									class="fa fa-building"></i><span> Affiliated Institute</span></a></li>
+							<%
+								}
+							%>
+							
+							
 							<%
 								if (profile.contentEquals("Affiliated")){
 							%>
@@ -195,14 +205,7 @@
 							<%
 								}
 							%>
-							<%
-								if (!profile.contentEquals("Affiliated")){
-							%>
-							<li><a class="ajax-link" href="Admin-FeeConfig.jsp"><i
-									class="fa fa-building"></i><span> Fee Configuration</span></a></li>
-							<%
-								}
-							%>
+							
 							<%
 								if (profile.contentEquals("Parent")){
 							%>
@@ -211,6 +214,16 @@
 							<%
 								}
 							%>
+							
+							<%
+								if (profile.contentEquals("Parent")|| profile.contentEquals("SU")){
+							%>
+							<li><a class="ajax-link" href="Admin-FeeConfig.jsp"><i
+									class="fa fa-building"></i><span> Fee Configuration</span></a></li>
+							<%
+								}
+							%>
+							
 							<%
 								if (profile.contentEquals("Affiliated")){
 							%><li><a class="ajax-link" href="getInstDues"><i

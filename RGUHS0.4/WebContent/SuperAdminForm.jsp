@@ -172,11 +172,11 @@
 
 
 
-															<input type="radio" required="required"
-																name="superAdmin.gender" id="userPrefixMr" value="Male">Male
-															&nbsp;&nbsp;&nbsp;<input type="radio" required="required"
+														<label>	<input type="radio" required="required"
+																name="superAdmin.gender" id="userPrefixMr" value="Male">Male</label>
+															&nbsp;&nbsp;&nbsp;<label><input type="radio" required="required"
 																name="superAdmin.gender" id="userPrefixMrs"
-																value="Female">Female
+																value="Female">Female</label>
 
 
 

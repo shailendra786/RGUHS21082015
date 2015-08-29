@@ -133,15 +133,7 @@
 													</div></td>
 
 											</tr>
-											<tr>
 
-												<td><strong>College Name</strong></td>
-												<td><div id="the-basics" class="has-success">
-														<s:property value="appBean1.affBean.instName" />
-
-													</div></td>
-
-											</tr>
 											<tr>
 
 												<td><strong>Name</strong></td>
@@ -199,7 +191,26 @@
 											</tr>
 
 
+											<tr>
 
+												<td><strong>College Name</strong></td>
+												<td><div id="the-basics" class="has-success">
+														<s:property value="appBean1.affBeanManyToOne.instName" />
+
+													</div></td>
+
+											</tr>
+
+											<tr>
+
+												<td><strong>University Name</strong></td>
+												<td><div id="the-basics" class="has-success">
+														<s:property
+															value="appBean1.affBeanManyToOne.parBeanManyToOne.parInstName" />
+
+													</div></td>
+
+											</tr>
 
 
 
