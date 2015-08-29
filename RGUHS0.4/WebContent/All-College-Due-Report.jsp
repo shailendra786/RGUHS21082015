@@ -264,9 +264,8 @@
 											</button>
 										</div> -->
 									</div>
-									
-									<br>
-									<br>
+
+									<br> <br>
 									<!---Content-->
 									<table
 										class="table table-condensed table-striped table-bordered bootstrap-datatable datatable responsive">
@@ -290,11 +289,11 @@
 												int i = 1;
 											%>
 											<s:iterator value="affBeans" var="parent">
-												<tr>
-
-													<s:iterator value="#parent.dueFeesSet">
 
 
+												<s:iterator value="#parent.dueFeesSet">
+
+													<tr>
 														<td><span style="margin-left: 10px;"><%=i%></span></td>
 														<td><span style="margin-left: 10px;"><s:property
 																	value="#parent.instName" /></span></td>
@@ -311,14 +310,15 @@
 														<td><span style="margin-left: 10px;"><s:property
 																	value="total_fee_amount" /></span></td>
 
+													</tr>
+													<%
+														i++;
+													%>
 
-													</s:iterator>
+												</s:iterator>
 
-												</tr>
 
-												<%
-													i++;
-												%>
+
 											</s:iterator>
 
 

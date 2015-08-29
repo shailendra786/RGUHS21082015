@@ -64,7 +64,7 @@ public class ParDAO {
 		Iterator<AffBean> itr = affBean.iterator();
 		while (itr.hasNext()) {
 			listOfIdes.add(itr.next().getInstId());
-		}
+			}
 		log.info("list size is" + listOfIdes.size());
 		return listOfIdes;
 
