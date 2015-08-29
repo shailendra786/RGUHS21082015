@@ -85,10 +85,10 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-
-			<a class="navbar-brand" href="index-College.html"> <img
-				alt="Charisma Logo" src="img/logo20.png" class="hidden-xs" /> <span>Fee
-					Collection Portal</span></a>
+<a href="http://www.feedesk.in/" target="blank"> <img
+				alt="FeeDesk Logo" src="img/feeDesk_logo.png"
+				style="width: 150px; height: 53px; margin-left: 20px;" />
+			</a>
 
 			<!-- user dropdown starts -->
 			<div class="btn-group pull-right">
