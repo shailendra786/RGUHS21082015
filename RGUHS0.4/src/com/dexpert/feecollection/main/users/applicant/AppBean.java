@@ -44,10 +44,11 @@ public class AppBean implements Serializable {
 	// one to one bidirectional relationship with student and college
 
 	// parent
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL,targetEntity=AffBean.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "College_id_fk", referencedColumnName = "instId")
 	AffBean affBeanManyToOne;
 
+	
 	public AffBean getAffBeanManyToOne() {
 		return affBeanManyToOne;
 	}

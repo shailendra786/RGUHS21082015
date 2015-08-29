@@ -67,8 +67,7 @@ public class AffBean implements Serializable {
 	ParBean parBeanManyToOne;
 
 	// one to many relationship with Applicants (Students)
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "InsId_Fk", referencedColumnName = "instId")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy="affBeanManyToOne")
 	Set<AppBean> aplBeanSet;
 
 	// one to many relationship with FeeDetails)
@@ -80,9 +79,6 @@ public class AffBean implements Serializable {
 /*
 	@OneToOne(cascade = CascadeType.ALL)
 	private ParBean parBeanOneToOne;*/
-
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "affBean")
-	private AppBean appBean;
 
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "affiliated_values", joinColumns = @JoinColumn(name = "inst_id"), inverseJoinColumns = @JoinColumn(name = "value_id"))
@@ -214,13 +210,7 @@ public class AffBean implements Serializable {
 		this.mobileNum = mobileNum;
 	}
 
-	public AppBean getAppBean() {
-		return appBean;
-	}
-
-	public void setAppBean(AppBean appBean) {
-		this.appBean = appBean;
-	}
+	
 
 	public Set<FeeDetailsBean> getFeeSet() {
 		return feeSet;

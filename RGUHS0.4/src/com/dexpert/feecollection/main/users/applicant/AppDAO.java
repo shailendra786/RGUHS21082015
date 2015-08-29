@@ -61,14 +61,10 @@ public class AppDAO {
 
 		// to get college record based on id to create relationship
 		affBean = aff.viewInstDetail(aplInstId);
-		
-		// one to Many bidirectional
-		affBean.setAppBean(appBean);
-		appBean.setAffBeanManyToOne(affBean);
-		
 
-		// one to many Relationship
+		// one to Many bidirectional
 		affBean.getAplBeanSet().add(appBean);
+		appBean.setAffBeanManyToOne(affBean);
 
 		try {
 			Transaction tx = session.beginTransaction();
@@ -175,11 +171,11 @@ public class AppDAO {
 			Criteria criteria = session.createCriteria(AppBean.class);
 			criteria.add(Restrictions.eq("enrollmentNumber", EnrId));
 
-			AppBean appBeanList=null;
+			AppBean appBeanList = null;
 			try {
 				appBeanList = (AppBean) criteria.list().iterator().next();
 			} catch (java.util.NoSuchElementException e) {
-				appBeanList=null;
+				appBeanList = null;
 			}
 			return appBeanList;
 
