@@ -72,7 +72,7 @@ public class EmailSessionBean {
 			textPart.setText(textContent);
 			MimeBodyPart htmlPart = new MimeBodyPart();
 			String htmlContent = "<html><h1>Welcome " + Name
-					
+					+"<img src='img/feeDesk_logo.png' height=100 width=100><br>"
 					+ "</h1><p><h3>Please Use the following credentials to login to your Account</h3></p>"
 					+ "<p><b>Username:</b> " + Username + "</p>" + "<p><b>Password:</b> " + Password + "</p></html>";
 			htmlPart.setContent(htmlContent, "text/html");
