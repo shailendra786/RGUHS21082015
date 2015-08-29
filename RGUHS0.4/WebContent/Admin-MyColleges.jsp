@@ -181,7 +181,7 @@
 								}
 							%>
 							<%
-								if (!profile.contentEquals("Affiliated")){
+								if (profile.contentEquals("Affiliated")){
 							%>
 							<li><a class="ajax-link" href="getCollegeList"><i
 									class="fa fa-building"></i><span> Affiliated Institutes</span></a></li>
@@ -200,6 +200,14 @@
 							%>
 							<li><a class="ajax-link" href="Admin-FeeConfig.jsp"><i
 									class="fa fa-building"></i><span> Fee Configuration</span></a></li>
+							<%
+								}
+							%>
+							<%
+								if (profile.contentEquals("Parent")){
+							%>
+							<li><a class="ajax-link" href="GetCollegeListOnUniversity"><i
+									class="fa fa-building"></i><span>Affiliated Institutes</span></a></li>
 							<%
 								}
 							%>
