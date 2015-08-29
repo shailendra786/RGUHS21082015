@@ -62,7 +62,7 @@ public class AffBean implements Serializable {
 	LoginBean loginBean;
 
 	// bidirectional many to one
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "Parent_id_fk", referencedColumnName = "parInstId")
 	ParBean parBeanManyToOne;
 

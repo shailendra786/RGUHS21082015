@@ -89,11 +89,13 @@ public class AffAction extends ActionSupport {
 
 	// registerInstitute()
 	public String registerInstitute() throws Exception {
+		log.info("Par Inst Name Is  ::" + parInstId);
 		// log.info("paramset is "+affInstBean.getParamvalues().toString());
 		List<String> instNameList = affDao.getCollegeNameList(affInstBean.getInstName());
 		log.info("List Size is ::" + instNameList.size());
 		HttpSession httpSession = request.getSession();
 		LoginBean loginBean = (LoginBean) httpSession.getAttribute("loginUserBean");
+		ParBean parBean1 = new ParBean();
 		if (instNameList.isEmpty()) {
 
 			if (parInstId == null) {
@@ -123,19 +125,21 @@ public class AffAction extends ActionSupport {
 				LoginBean creds = new LoginBean();
 				creds.setPassword(encryptedPwd);
 				creds.setUserName(username);
-				log.info("University ID is ::" + parInstId);
-				creds.setProfile(affInstBean.getLoginBean().getProfile());
 
-				ParBean parBean1 = new ParBean();
+				creds.setProfile(affInstBean.getLoginBean().getProfile());
 
 				parBean1 = parDAO.viewUniversity(parInstId);
 
 				// one to many relationship
 				parBean1.getAffBeanOneToManySet().add(affInstBean);
+
+				affInstBean.setParBeanManyToOne(parBean1);
 				parDAO.saveOrUpdate(parBean1, null);
 
 				// for bidirectional relationship ,set parent record to child
 				// record
+
+				// login to institute
 				creds.setAffBean(affInstBean);
 
 				// one to one relationship
@@ -706,12 +710,13 @@ public class AffAction extends ActionSupport {
 			log.info("List Size ::" + transactionDetailsForReport.size());
 			return SUCCESS;
 
-		}else{
-        idOfLoginer=(Integer)ses.getAttribute("sesId");
-		transactionDetailsForReport = affDao.getTransactionDetails(idOfLoginer, profile);
-		log.info("inside else block%%%%%%%%%");
-		return SUCCESS;
-	}}
+		} else {
+			idOfLoginer = (Integer) ses.getAttribute("sesId");
+			transactionDetailsForReport = affDao.getTransactionDetails(idOfLoginer, profile);
+			log.info("inside else block%%%%%%%%%");
+			return SUCCESS;
+		}
+	}
 
 	// End of Action Methods
 	// ---------------------------------------------------

@@ -104,7 +104,7 @@ public class ParDAO {
 
 			parBean.setFileSize(fileSize);
 			session.beginTransaction();
-			session.saveOrUpdate(parBean);
+			session.save(parBean);
 			session.getTransaction().commit();
 			return parBean;
 
@@ -137,6 +137,8 @@ public class ParDAO {
 
 	public ParBean viewUniversity(Integer id) {
 		Session session = factory.openSession();
+		
+		log.info("View University");
 		try {
 			Criteria criteria = session.createCriteria(ParBean.class);
 			criteria.add(Restrictions.eq("parInstId", id));
