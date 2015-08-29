@@ -61,9 +61,11 @@ public class AppDAO {
 
 		// to get college record based on id to create relationship
 		affBean = aff.viewInstDetail(aplInstId);
-		// one to one bidirectional
-		appBean.setAffBean(affBean);
+		
+		// one to Many bidirectional
 		affBean.setAppBean(appBean);
+		appBean.setAffBeanManyToOne(affBean);
+		
 
 		// one to many Relationship
 		affBean.getAplBeanSet().add(appBean);

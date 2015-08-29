@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -30,7 +31,6 @@ public class AppBean implements Serializable {
 	private Integer aplId;
 	private String aplFirstName, aplLstName, aplEmail, aplAddress, aplMobilePri, aplMobileSec, enrollmentNumber,
 			gender;
-	
 
 	// one to one bidirectional relationship with login
 	@OneToOne(cascade = CascadeType.ALL)
@@ -44,16 +44,16 @@ public class AppBean implements Serializable {
 	// one to one bidirectional relationship with student and college
 
 	// parent
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "affInst_Fk")
-	AffBean affBean;
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "College_id_fk", referencedColumnName = "instId")
+	AffBean affBeanManyToOne;
 
-	public AffBean getAffBean() {
-		return affBean;
+	public AffBean getAffBeanManyToOne() {
+		return affBeanManyToOne;
 	}
 
-	public void setAffBean(AffBean affBean) {
-		this.affBean = affBean;
+	public void setAffBeanManyToOne(AffBean affBeanManyToOne) {
+		this.affBeanManyToOne = affBeanManyToOne;
 	}
 
 	public Set<PayBean> getPayBeansSet() {
@@ -135,8 +135,6 @@ public class AppBean implements Serializable {
 	public void setEnrollmentNumber(String enrollmentNumber) {
 		this.enrollmentNumber = enrollmentNumber;
 	}
-
-	
 
 	public String getGender() {
 		return gender;

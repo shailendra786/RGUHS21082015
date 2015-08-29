@@ -67,7 +67,7 @@ public class AffBean implements Serializable {
 	ParBean parBeanManyToOne;
 
 	// one to many relationship with Applicants (Students)
-	@OneToMany(cascade = CascadeType.ALL, targetEntity = AppBean.class, fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "InsId_Fk", referencedColumnName = "instId")
 	Set<AppBean> aplBeanSet;
 

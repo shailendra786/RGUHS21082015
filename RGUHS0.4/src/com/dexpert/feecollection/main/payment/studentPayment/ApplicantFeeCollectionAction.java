@@ -170,7 +170,7 @@ public class ApplicantFeeCollectionAction extends ActionSupport {
 		if (appBean1 != null) {
 
 			// tran.setDueString(dueString);
-			tran.setInsId(appBean1.getAffBean().getInstId());
+			tran.setInsId(appBean1.getAffBeanManyToOne().getInstId());
 			tran.setPayeeAdd(appBean1.getAplAddress());
 			tran.setPayeeAmount(Double.parseDouble(request.getParameter("feeValue")));
 			tran.setPayeeEmail(appBean1.getAplEmail());

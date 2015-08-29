@@ -56,6 +56,8 @@ public class AppAction extends ActionSupport {
 				affInstList = affDAO.getCollegesList();
 				return "failure";
 			}
+			
+			
 
 			appBean1 = aplDAO.saveOrUpdate(appBean1, aplInstId);
 			request.setAttribute("msg", "Student Addedd Successfully");
