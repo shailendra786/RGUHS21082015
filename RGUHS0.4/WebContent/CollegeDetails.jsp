@@ -146,7 +146,7 @@
 
 												<td style="font-weight: bold;">University Name</td>
 												<td><s:property
-														value="affInstBean.parBeanOneToOne.parInstName" /></td>
+														value="affInstBean.parBeanManyToOne.parInstName" /></td>
 
 											</tr>
 											<tr>
@@ -180,7 +180,7 @@
 												<td><s:property value="affInstBean.instAddress" /></td>
 
 											</tr>
-											<tr>
+											<%-- <tr>
 
 												<td style="font-weight: bold;">Uploaded FIle</td>
 												<td><strong><a
@@ -188,7 +188,7 @@
 														title="Click to Download File"><s:property
 																value="affInstBean.fileUploadFileName" /></a></strong></td>
 
-											</tr>
+											</tr> --%>
 
 
 										</tbody>
