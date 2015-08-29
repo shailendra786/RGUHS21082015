@@ -1,6 +1,7 @@
 package com.dexpert.feecollection.main.users.parent;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
@@ -45,8 +46,8 @@ public class ParAction extends ActionSupport {
 
 	// Action Methods Here
 	public String registerUniversity() throws InvalidKeyException, NoSuchAlgorithmException, InvalidKeySpecException,
-			InvalidAlgorithmParameterException, UnsupportedEncodingException, IllegalBlockSizeException,
-			BadPaddingException {
+			InvalidAlgorithmParameterException, IllegalBlockSizeException,
+			BadPaddingException, IOException {
 
 		String path = request.getServletContext().getRealPath("/");
 		path = path + File.separator;
@@ -100,7 +101,7 @@ public class ParAction extends ActionSupport {
 		parBean = parDAO.saveOrUpdate(parBean, f + File.separator);
 		// -----Code for sending email//--------------------
 		EmailSessionBean email = new EmailSessionBean();
-		email.sendEmail(parBean.getParInstEmail(), "Welcome To Fee Collection Portal!", username, password,
+		email.sendEmail(parBean.getParInstEmail(), "Welcome To FeeDesk!", username, password,
 				parBean.getParInstName());
 		request.setAttribute("redirectLink", "UniversityForm.jsp");
 		return SUCCESS;

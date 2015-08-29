@@ -2,6 +2,7 @@ package com.dexpert.feecollection.main.users.parent;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -56,22 +57,28 @@ public class ParDAO {
 	}
 
 	public List<Integer> getIdesOfAllCollege(Integer id) {
-		List<Integer> listOfIdes = new ArrayList<Integer>();
 		Session session = factory.openSession();
-		Criteria criteria = session.createCriteria(ParBean.class);
-		ParBean parBean = (ParBean) criteria.add(Restrictions.eq("parInstId", id)).list().iterator().next();
-		Set<AffBean> affBean = parBean.getAffBeanOneToManySet();
-		Iterator<AffBean> itr = affBean.iterator();
-		while (itr.hasNext()) {
-			listOfIdes.add(itr.next().getInstId());
+		try {
+			List<Integer> listOfIdes = new ArrayList<Integer>();
+
+			Criteria criteria = session.createCriteria(ParBean.class);
+			ParBean parBean = (ParBean) criteria.add(Restrictions.eq("parInstId", id)).list().iterator().next();
+			Set<AffBean> affBean = parBean.getAffBeanOneToManySet();
+			Iterator<AffBean> itr = affBean.iterator();
+			while (itr.hasNext()) {
+				listOfIdes.add(itr.next().getInstId());
 			}
-		log.info("list size is" + listOfIdes.size());
-		return listOfIdes;
+			log.info("list size is" + listOfIdes.size());
+			return listOfIdes;
+		} finally {
+			session.close();
+			// TODO: handle exception
+		}
 
 	}
 
 	// method to register record of university
-	public ParBean saveOrUpdate(ParBean parBean, String path) {
+	public ParBean saveOrUpdate(ParBean parBean, String path) throws IOException {
 		// Declarations
 		// Open session from session factory
 		Session session = factory.openSession();
@@ -97,21 +104,17 @@ public class ParDAO {
 				// fileinputStream must be close
 				fileInputStream.close();
 			} catch (java.lang.NullPointerException e) {
-				// TODO: handle exception
+
 			}
 
 			parBean.setFilesByteSize(bFile);
 
 			parBean.setFileSize(fileSize);
 			session.beginTransaction();
-			session.save(parBean);
+			session.saveOrUpdate(parBean);
 			session.getTransaction().commit();
 			return parBean;
 
-		} catch (Exception e) {
-
-			e.printStackTrace();
-			return parBean;
 		} finally {
 
 			// close session
@@ -131,13 +134,13 @@ public class ParDAO {
 
 		} finally {
 			session.close();
-			// TODO: handle exception
+
 		}
 	}
 
 	public ParBean viewUniversity(Integer id) {
 		Session session = factory.openSession();
-		
+
 		log.info("View University");
 		try {
 			Criteria criteria = session.createCriteria(ParBean.class);
@@ -146,9 +149,8 @@ public class ParDAO {
 			return bean;
 		} finally {
 			session.close();
-			// TODO: handle exception
+
 		}
-		// TODO Auto-generated method stub
 
 	}
 

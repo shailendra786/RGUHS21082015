@@ -2,6 +2,7 @@ package com.dexpert.feecollection.main.users.affiliated;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
@@ -439,8 +440,7 @@ public class AffDAO {
 	// ---------------------------------------------------
 	// to save record into Database
 	public ArrayList<AffBean> addBulkData(AffBean affBean) throws InvalidKeyException, NoSuchAlgorithmException,
-			InvalidKeySpecException, InvalidAlgorithmParameterException, UnsupportedEncodingException,
-			IllegalBlockSizeException, BadPaddingException {
+			InvalidKeySpecException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, IOException {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		ArrayList<AffBean> collegeListFromDB = new ArrayList<AffBean>();
 		ArrayList<AffBean> notAddedCollegeList = new ArrayList<AffBean>();

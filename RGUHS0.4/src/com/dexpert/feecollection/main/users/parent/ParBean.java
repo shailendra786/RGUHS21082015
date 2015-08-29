@@ -49,7 +49,7 @@ public class ParBean implements Serializable {
 	// ------------------------------------
 
 	// one to many relation ship with Institutes
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "parBeanManyToOne")
+	@OneToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER, mappedBy = "parBeanManyToOne")
 	Set<AffBean> affBeanOneToManySet;
 
 	/*@OneToOne(cascade = CascadeType.ALL,mappedBy="parBeanOneToOne")

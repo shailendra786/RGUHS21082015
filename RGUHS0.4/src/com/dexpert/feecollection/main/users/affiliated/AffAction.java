@@ -62,7 +62,7 @@ public class AffAction extends ActionSupport {
 	ArrayList<AffFeePropBean> dueList = new ArrayList<AffFeePropBean>();
 	List<ParBean> parBeansList = new ArrayList<ParBean>();
 	AffDAO affDao = new AffDAO();
-	ParBean parBean = new ParBean();
+	ParBean parBean;
 	ParDAO parDAO = new ParDAO();
 	FcDAO feeDAO = new FcDAO();
 	static Logger log = Logger.getLogger(AffAction.class.getName());
@@ -92,10 +92,11 @@ public class AffAction extends ActionSupport {
 		log.info("Par Inst Name Is  ::" + parInstId);
 		// log.info("paramset is "+affInstBean.getParamvalues().toString());
 		List<String> instNameList = affDao.getCollegeNameList(affInstBean.getInstName());
-		log.info("List Size is ::" + instNameList.size());
-		HttpSession httpSession = request.getSession();
-		LoginBean loginBean = (LoginBean) httpSession.getAttribute("loginUserBean");
-		ParBean parBean1 = new ParBean();
+
+		// HttpSession httpSession = request.getSession();
+		// LoginBean loginBean = (LoginBean)
+		// httpSession.getAttribute("loginUserBean");
+
 		if (instNameList.isEmpty()) {
 
 			if (parInstId == null) {
@@ -105,7 +106,7 @@ public class AffAction extends ActionSupport {
 
 			} else {
 				String username;
-				// generate credentials for admin login
+
 				try {
 					username = "Inst".concat(affInstBean.getInstName().replaceAll("\\s+", "").substring(0, 4)
 							.concat(affDao.getRowCount().toString()));
@@ -117,7 +118,6 @@ public class AffAction extends ActionSupport {
 				}
 
 				String password = RandomPasswordGenerator.generatePswd(6, 8, 1, 2, 0);
-				// log.info("Password Generated is " + password);
 
 				PasswordEncryption.encrypt(password);
 				String encryptedPwd = PasswordEncryption.encStr;
@@ -127,7 +127,7 @@ public class AffAction extends ActionSupport {
 				creds.setUserName(username);
 
 				creds.setProfile(affInstBean.getLoginBean().getProfile());
-
+				 ParBean parBean1 = new ParBean();
 				parBean1 = parDAO.viewUniversity(parInstId);
 
 				// one to many relationship
@@ -171,7 +171,7 @@ public class AffAction extends ActionSupport {
 
 				// -----Code for sending email//--------------------
 				EmailSessionBean email = new EmailSessionBean();
-				email.sendEmail(affInstBean.getEmail(), "Welcome To Fee Collection Portal!", username, password,
+				email.sendEmail(affInstBean.getEmail(), "Welcome To FeeDesk!", username, password,
 						affInstBean.getInstName());
 
 				request.setAttribute("msg", "Institute Added Successfully");
@@ -226,10 +226,15 @@ public class AffAction extends ActionSupport {
 
 	// get collgege list based on university ID
 	public String getUniversityCollegeList() {
-		HttpSession httpSession = request.getSession();
-		LoginBean loginBean = (LoginBean) httpSession.getAttribute("loginUserBean");
-		parBean = affDao.getUniversityCollegeList(loginBean);
-		return SUCCESS;
+		try {
+			HttpSession httpSession = request.getSession();
+			LoginBean loginBean = (LoginBean) httpSession.getAttribute("loginUserBean");
+			parBean = affDao.getUniversityCollegeList(loginBean);
+			return SUCCESS;
+		} catch (java.lang.NullPointerException e) {
+			return ERROR;
+		}
+
 	}
 
 	// get one college Detail to edit
