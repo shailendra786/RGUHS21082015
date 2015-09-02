@@ -515,12 +515,10 @@ public class AffDAO {
 			ParBean parBean1 = new ParBean();
 			parBean1 = parDAO.viewUniversity(loginBean.getParBean().getParInstId());
 
+			// one to may many to one relation ship
 			affBean.setParBeanManyToOne(parBean1);
 			parBean1.getAffBeanOneToManySet().add(affBean);
-			
-			// parDAO.saveOrUpdate(parBean1,
-															// null);
-
+			// -------------------
 			Session session = factory.openSession();
 			Transaction tx = session.beginTransaction();
 			session.save(affBean);

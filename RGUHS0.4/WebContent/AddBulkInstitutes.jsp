@@ -202,7 +202,10 @@
 						</div>
 						
 						
-						<div style="display:none;text-align: center;" id="wait"><img src="img/ajax-loaders/ajax-loader-6.gif"
+						<div style="display:none;text-align: center;" id="wait">
+						
+						<span>Please wait while Processing...</span>
+						<img src="img/ajax-loaders/ajax-loader-6.gif"
                                  title="img/ajax-loaders/ajax-loader-6.gif"></div>
 
 					</div>
