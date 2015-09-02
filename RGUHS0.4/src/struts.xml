@@ -227,6 +227,11 @@
 			method="viewCollegeDetail">
 			<result name="success">CollegeDetails.jsp</result>
 		</action>
+		<action name="viewOneCollegeDues"
+			class="com.dexpert.feecollection.main.users.affiliated.AffAction"
+			method="viewOneCollegeDues">
+			<result name="success">College-Due-ReportPopUp.jsp</result>
+		</action>
 		
 		
 		<action name="TranactionReport"

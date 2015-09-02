@@ -6,7 +6,8 @@
 <%
 	//checking session
 	LoginBean loginUser = new LoginBean();
-	loginUser = (LoginBean) session.getAttribute("loginUserBean"); String profile=(String)session.getAttribute("sesProfile");
+	loginUser = (LoginBean) session.getAttribute("loginUserBean");
+	String profile = (String) session.getAttribute("sesProfile");
 
 	if (loginUser == null) {
 		response.sendRedirect("Login.jsp");
@@ -169,14 +170,14 @@
 								href='<%=session.getAttribute("dashLink").toString()%>'><i
 									class="glyphicon glyphicon-home"></i><span> Dashboard</span></a></li>
 							<%
-								if (profile.contentEquals("SU")){
+								if (profile.contentEquals("SU")) {
 							%><li><a class="ajax-link" href="UniversityDetailRecord"><i
 									class="fa fa-building"></i><span> Parent Institute</span></a></li>
 							<%
 								}
 							%>
 							<%
-								if (!profile.contentEquals("Affiliated")){
+								if (!profile.contentEquals("Affiliated")) {
 							%>
 							<li><a class="ajax-link" href="getCollegeList"><i
 									class="fa fa-building"></i><span> Affiliated Institutes</span></a></li>
@@ -184,14 +185,14 @@
 								}
 							%>
 							<%
-								if (profile.contentEquals("Affiliated")){
+								if (profile.contentEquals("Affiliated")) {
 							%><li><a class="ajax-link" href="StudentTotalRecord"><i
 									class="glyphicon glyphicon-home"></i><span> Student</span></a></li>
 							<%
 								}
 							%>
 							<%
-								if (!profile.contentEquals("Affiliated")){
+								if (!profile.contentEquals("Affiliated")) {
 							%>
 							<li><a class="ajax-link" href="Admin-FeeConfig.jsp"><i
 									class="fa fa-building"></i><span> Fee Configuration</span></a></li>
@@ -199,7 +200,7 @@
 								}
 							%>
 							<%
-								if (profile.contentEquals("Affiliated")){
+								if (profile.contentEquals("Affiliated")) {
 							%><li><a class="ajax-link" href="getInstDues"><i
 									class="fa fa-list-alt"></i><span> Fee Payment</span></a></li>
 							<%
@@ -274,6 +275,7 @@
 												<th>College Email</th>
 												<th>Institute Address</th>
 												<th>Place</th>
+												<th>Action</th>
 
 											</tr>
 										</thead>
@@ -284,8 +286,9 @@
 											<s:iterator value="affInstList">
 												<tr>
 													<td><span style="margin-left: 10px;"><%=i%></span></td>
-
-													<td><span style="margin-left: 10px;"><s:property
+													<td style="display: none;"><span style="margin-left: 10px;"><s:property
+																value="instId" /></span></td>
+                                                    <td><span style="margin-left: 10px;"><s:property
 																value="instName" /></span></td>
 													<td><span style="margin-left: 10px;"><s:property
 																value="contactNumber" /></span></td>
@@ -296,7 +299,10 @@
 																value="instAddress" /></span></td>
 													<td><span style="margin-left: 10px;"><s:property
 																value="place" /></span></td>
-
+													<td><span style="margin-left: 10px;"><input
+															type="button" value="ViewDues"
+															onclick='window.open("viewOneCollegeDues?collegId="+<s:property
+																value="instId" />,"dues","width=1000,height=500")'></span></td>
 												</tr>
 
 												<%

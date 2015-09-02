@@ -87,7 +87,7 @@
 					class="icon-bar"></span>
 			</button>
 
-		<a href="http://www.feedesk.in/" target="blank"> <img
+			<a href="http://www.feedesk.in/" target="blank"> <img
 				alt="FeeDesk Logo" src="img/feeDesk_logo.png"
 				style="width: 150px; height: 53px; margin-left: 20px;" />
 			</a>
@@ -267,52 +267,79 @@
 									</div> -->
 									<br>
 									<!---Content-->
-									<table
-										class="table table-condensed table-striped table-bordered bootstrap-datatable datatable responsive">
-										<thead>
-											<tr>
-												<th width="7%">Sr. No.</th>
-												<th>Payee</th>
-												<!-- <th>Due Date</th> -->
-												<th>Payment To Date</th>
-												<th>Date Calculated</th>
-												<th>Net Due</th>
-												<th>Total_Fee_Amount</th>
-
-
-
-											</tr>
-										</thead>
-										<tbody>
-											<%
-												int i = 1;
-											%>
-											<s:iterator value="dueFeesSet">
+									<s:if test="%{dueList.isEmpty()}">
+										<div
+											style="color: green; text-align: center; font-weight: bold; font-size: x-large;">
+											No Due Available For This College</div>
+									</s:if>
+									<s:else>
+										<table
+											class="table table-condensed table-striped table-bordered bootstrap-datatable datatable responsive">
+											<thead>
 												<tr>
-													<td><span style="margin-left: 10px;"><%=i%></span></td>
-													<td><span style="margin-left: 10px;"><s:property
-																value="payee" /></span></td>
-													<%-- <td><span style="margin-left: 10px;"><s:property
-																value="dueDate" /></span></td> --%>
-													<td><span style="margin-left: 10px;"><s:property
-																value="payments_to_date" /></span></td>
-													<td><span style="margin-left: 10px;"><s:property
-																value="dateCalculated" /></span></td>
-													<td><span style="margin-left: 10px;"><s:property
-																value="netDue" /></span></td>
-													<td><span style="margin-left: 10px;"><s:property
-																value="total_fee_amount" /></span></td>
+													<th width="7%">Sr. No.</th>
+													<th>Fee Name</th>
+													<th></th>
+													<th>Net Due</th>
+													<th></th>
+													<th>Payment To Date</th>
+													<th></th>
+													<th colspan="2">Total_Fee_Amount</th>
+
 
 												</tr>
+											</thead>
+											<tbody>
 
 												<%
-													i++;
+													int i = 1;
 												%>
-											</s:iterator>
+												<s:iterator value="dueList">
+													<tr>
+														<td><%=i%></td>
+
+														<td class="center"><s:property value="feeName" /> <input
+															type="hidden" id="feeName"
+															value='<s:property value="feeName" />'></td>
+
+														<td></td>
+														<td class="center">Rs. <s:property
+																value="dueBean.netDue" default="0" /></td>
+														<td></td>
+														<td class="center">Rs. <s:property
+																value="dueBean.payments_to_date" default="0" /></td>
+														<td></td>
+														<td colspan="2" class="center">Rs. <s:property
+																value="dueBean.total_fee_amount" default="0" /></td>
+
+													</tr>
+
+													<%
+														i++;
+													%>
+												</s:iterator>
+												<tr>
+													<td></td>
+													<td></td>
+													<td><span style="font-weight: bold;">Net Due</span></td>
+													<td><s:property value="netDues" /></td>
+													<td><span style="font-weight: bold;">PTD</span></td>
+													<td><s:property value="paymentToDate" /></td>
+													<td><span style="font-weight: bold;">TFA</span></td>
+													<td colspan="2"><s:property value="totalDues" /></td>
 
 
-										</tbody>
-									</table>
+												</tr>
+											</tbody>
+										</table>
+										<table
+											class="table table-condensed table-striped table-bordered bootstrap-datatable datatable responsive">
+
+
+
+										</table>
+									</s:else>
+
 
 								</div>
 
