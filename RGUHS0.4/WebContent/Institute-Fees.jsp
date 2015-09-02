@@ -267,9 +267,9 @@ ment-Summary.html">Proceed To
 												<th width="7%">Sr. No.</th>
 
 												<th>Fee Name</th>
+												<th>Total Amount</th>
+												<th>Payment To Date</th>
 												<th>Amount Payable</th>
-												<th>Due Date</th>
-												<th>Due Date with Late Fee</th>
 												<th>Actions</th>
 											</tr>
 										</thead>
@@ -286,19 +286,21 @@ ment-Summary.html">Proceed To
 														value='<s:property value="feeName" />'></td>
 
 													<td class="center">Rs. <s:property
-															value="dueBean.netDue" default="0" /></td>
-													<td><s:property value="endDate" default="not Set" /></td>
-													<td><s:property value="lateDate" default="not Set" /></td>
+															value="dueBean.total_fee_amount" default="0" /></td>
+													<td><s:property value="dueBean.payments_to_date"
+															default="0" /></td>
+													<td><s:property value="dueBean.netDue"
+															default="0" /></td>
 													<td class="center"><s:set var="dueAmt">
 															<s:property value="dueBean.netDue" default="0" />
 														</s:set> <s:if test='%{#dueAmt >0}'>
-
 															<input type="button" class="btn btn-danger"
 																onclick="openPaymentGateway('<s:property value="dueBean.netDue" default="0"  />','<s:property value="feeName" />')"
 																value="Pay">
-
 														</s:if>
-														<%-- <button
+														<s:elseif test='%{#dueAmt==0}'><span style="color:green;font: 50px;" >Fees Completed</span></s:elseif>
+														
+														 <%-- <button
 															onclick='window.open("getFeeCalcDetails?instId=<%=session.getAttribute("sesId").toString()%>&reqFeeId=<s:property value='feeId'/>","CalcDetails","height=768,width=1024")'
 															class="btn btn-success btn-sm">Calculation
 															Details</button> --%></td>
@@ -308,18 +310,40 @@ ment-Summary.html">Proceed To
 													i++;
 												%>
 											</s:iterator>
+											<tr>
+												<td></td>
+												<td><span style="font-size: 20px; font-weight: bold;">Total
+														Fees Amount</span></td>
+												<td><span
+													style="font-size: x-large; font-weight: bold; color: purple;">
+														<s:property value="totalDues" />
+												</span></td>
+												<td><span
+													style="font-size: x-large; font-weight: bold; color: bold;">Fees
+														To be Paid </span></td>
 
+												<td><span
+													style="font-size: x-large; font-weight: bold; color: purple;"><s:property
+															value="netDues" /></span></td>
+												<td><span style="font-size: 20px; font-weight: bold;"></span></td>
 
+											</tr>
+
+											<tr>
 										</tbody>
 									</table>
 
 									<script type="text/javascript">
-									function openPaymentGateway(dueAmt,feeName) {
-						
-					   window.location = "instPaymentGateway?feeName="+feeName+"&amt="+dueAmt;
+										function openPaymentGateway(dueAmt,
+												feeName) {
 
-									}
-								</script>
+											window.location = "instPaymentGateway?feeName="
+													+ feeName
+													+ "&amt="
+													+ dueAmt;
+
+										}
+									</script>
 
 								</div>
 

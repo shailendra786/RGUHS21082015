@@ -565,6 +565,22 @@ public class AffAction extends ActionSupport {
 		AffBean collbean = affDao.getOneCollegeRecord(id);
 		// get feeprops set in list
 		dueList = new ArrayList<AffFeePropBean>(collbean.getFeeProps());
+		Iterator<AffFeePropBean> itr = dueList.iterator();
+		while (itr.hasNext()) {
+			PaymentDuesBean dues = itr.next().getDueBean();
+			Double totalDueFromDB = dues.getTotal_fee_amount() == null ? 0.0 : dues.getTotal_fee_amount();
+			totalDues = totalDues + totalDueFromDB;
+			log.info("Total Dues" + totalDues);
+			Double netDuesFromDB = dues.getNetDue() == null ? 0.0 : dues.getNetDue();
+			netDues = netDues + netDuesFromDB;
+			log.info("Total Net Dues" + netDues);
+			Double paymentToDateFromDB = dues.getPayments_to_date() == null ? 0.0 : dues.getPayments_to_date();
+			paymentToDate = paymentToDate + paymentToDateFromDB;
+			log.info("Payment to date Net Dues" + paymentToDate);
+		}
+
+		log.info("size of due fees set=" + dueList.size());
+		
 		return SUCCESS;
 	}
 
