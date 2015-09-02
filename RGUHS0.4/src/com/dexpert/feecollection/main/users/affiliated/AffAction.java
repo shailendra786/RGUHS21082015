@@ -80,10 +80,11 @@ public class AffAction extends ActionSupport {
 	private String contentType;
 	private AffBean affBean;
 	private List<TransactionBean> transactionDetailsForReport;
-    private Double totalDues=0.0;
-    private Double paymentToDate=0.0;
-    private Double netDues=0.0;
-    String collegeName;
+	private Double totalDues = 0.0;
+	private Double paymentToDate = 0.0;
+	private Double netDues = 0.0;
+	String collegeName;
+
 	// End of Global Variables
 
 	// ---------------------------------------------------
@@ -130,7 +131,7 @@ public class AffAction extends ActionSupport {
 				creds.setUserName(username);
 
 				creds.setProfile(affInstBean.getLoginBean().getProfile());
-				 ParBean parBean1 = new ParBean();
+				ParBean parBean1 = new ParBean();
 				parBean1 = parDAO.viewUniversity(parInstId);
 
 				// one to many relationship
@@ -381,12 +382,8 @@ public class AffAction extends ActionSupport {
 			// "Please Create University Credential First");
 			// return ERROR;
 			// }
-			Iterator<AffBean> iterator = affBeansList.iterator();
-			while (iterator.hasNext()) {
-				AffBean affBean = (AffBean) iterator.next();
 
-			}
-
+			request.setAttribute("msg", "College Recors Uploaded Successfully");
 			return SUCCESS;
 
 		}
@@ -594,21 +591,21 @@ public class AffAction extends ActionSupport {
 		log.info("college id is=" + id);
 		// get the affBean from db to get set of due
 		affBean = affDao.getCollegeDues(id);
-		dueList =new ArrayList<AffFeePropBean>( affBean.getFeeProps());
-		Iterator<AffFeePropBean> itr=dueList.iterator();
+		dueList = new ArrayList<AffFeePropBean>(affBean.getFeeProps());
+		Iterator<AffFeePropBean> itr = dueList.iterator();
 		while (itr.hasNext()) {
-		PaymentDuesBean dues=itr.next().getDueBean();
-		Double totalDueFromDB=dues.getTotal_fee_amount()==null?0.0:dues.getTotal_fee_amount();
-		totalDues=totalDues+totalDueFromDB;
-		log.info("Total Dues"+totalDues);
-		Double netDuesFromDB=dues.getNetDue()==null?0.0:dues.getNetDue();
-		netDues=netDues+netDuesFromDB;
-		log.info("Total Net Dues"+netDues);
-		Double paymentToDateFromDB=dues.getPayments_to_date()==null?0.0:dues.getPayments_to_date();
-		paymentToDate=paymentToDate+paymentToDateFromDB;
-		log.info("Payment to date Net Dues"+paymentToDate);
+			PaymentDuesBean dues = itr.next().getDueBean();
+			Double totalDueFromDB = dues.getTotal_fee_amount() == null ? 0.0 : dues.getTotal_fee_amount();
+			totalDues = totalDues + totalDueFromDB;
+			log.info("Total Dues" + totalDues);
+			Double netDuesFromDB = dues.getNetDue() == null ? 0.0 : dues.getNetDue();
+			netDues = netDues + netDuesFromDB;
+			log.info("Total Net Dues" + netDues);
+			Double paymentToDateFromDB = dues.getPayments_to_date() == null ? 0.0 : dues.getPayments_to_date();
+			paymentToDate = paymentToDate + paymentToDateFromDB;
+			log.info("Payment to date Net Dues" + paymentToDate);
 		}
-		
+
 		log.info("size of due fees set=" + dueList.size());
 		return SUCCESS;
 	}
@@ -739,30 +736,30 @@ public class AffAction extends ActionSupport {
 			return SUCCESS;
 		}
 	}
-	public String viewOneCollegeDues()
-	{
-		
-		Integer collegeId=Integer.parseInt(request.getParameter("collegId"));
+
+	public String viewOneCollegeDues() {
+
+		Integer collegeId = Integer.parseInt(request.getParameter("collegId"));
 		AffBean collbean = affDao.getOneCollegeRecord(collegeId);
-		 collegeName=collbean.getInstName();
+		collegeName = collbean.getInstName();
 		// get feeprops set in list
 		dueList = new ArrayList<AffFeePropBean>(collbean.getFeeProps());
-		
-		Iterator<AffFeePropBean> itr=dueList.iterator();
+
+		Iterator<AffFeePropBean> itr = dueList.iterator();
 		while (itr.hasNext()) {
-		PaymentDuesBean dues=itr.next().getDueBean();
-		Double totalDueFromDB=dues.getTotal_fee_amount()==null?0.0:dues.getTotal_fee_amount();
-		totalDues=totalDues+totalDueFromDB;
-		log.info("Total Dues"+totalDues);
-		Double netDuesFromDB=dues.getNetDue()==null?0.0:dues.getNetDue();
-		netDues=netDues+netDuesFromDB;
-		log.info("Total Net Dues"+netDues);
-		Double paymentToDateFromDB=dues.getPayments_to_date()==null?0.0:dues.getPayments_to_date();
-		paymentToDate=paymentToDate+paymentToDateFromDB;
-		log.info("Payment to date Net Dues"+paymentToDate);
+			PaymentDuesBean dues = itr.next().getDueBean();
+			Double totalDueFromDB = dues.getTotal_fee_amount() == null ? 0.0 : dues.getTotal_fee_amount();
+			totalDues = totalDues + totalDueFromDB;
+			log.info("Total Dues" + totalDues);
+			Double netDuesFromDB = dues.getNetDue() == null ? 0.0 : dues.getNetDue();
+			netDues = netDues + netDuesFromDB;
+			log.info("Total Net Dues" + netDues);
+			Double paymentToDateFromDB = dues.getPayments_to_date() == null ? 0.0 : dues.getPayments_to_date();
+			paymentToDate = paymentToDate + paymentToDateFromDB;
+			log.info("Payment to date Net Dues" + paymentToDate);
 		}
 		return SUCCESS;
-		
+
 	}
 
 	// End of Action Methods
@@ -1016,11 +1013,6 @@ public class AffAction extends ActionSupport {
 	public void setCollegeName(String collegeName) {
 		this.collegeName = collegeName;
 	}
-	
-	
-	
-	
-	
 
 	// End of Getter Setter Methods
 }

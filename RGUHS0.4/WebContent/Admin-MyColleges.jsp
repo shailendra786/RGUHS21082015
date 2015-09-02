@@ -282,11 +282,11 @@
 								<div class="col-lg-12 col-md-12 animated fadeIn">
 									<div class="row">
 										<div class="col-md-12">
-											<!-- <button class="btn btn-sm btn-info pull-right"
+										 <button class="btn btn-sm btn-info pull-right"
 												style="float: right;"
 												onclick='window.open("AddBulkInstitutes.jsp", "Bulk College Add", "width=500,height=600")'>
 												<i class="fa fa-plus"></i> Add Bulk Colleges
-											</button> -->
+											</button> 
 
 											<button class="btn btn-sm btn-info pull-right"
 												style="margin-right: 3%; float: right;"

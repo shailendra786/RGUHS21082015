@@ -138,7 +138,8 @@ public class AffDAO {
 		log.info("list of Ides  " + ides);
 		Session session = factory.openSession();
 		Criteria criteria = session.createCriteria(AffBean.class);
-		List<AffBean> affBeansList = criteria.add(Restrictions.in("instId", ides)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		List<AffBean> affBeansList = criteria.add(Restrictions.in("instId", ides))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		session.close();
 		return affBeansList;
 	}
@@ -361,8 +362,8 @@ public class AffDAO {
 	public ArrayList<AffBean> importExcelFileToDatabase(String fileUploadFileName, File fileUpload, String path)
 			throws Exception {
 		// ArrayList<AffBean> notAddedCollegeList = new ArrayList<AffBean>();
-		String instName, email, ContactPerson, instAddress, place;
-		Integer contactNum, mobileNum;
+		String instName, email = null, ContactPerson = null, instAddress = null, place = null;
+		Integer contactNum = null, mobileNum = null;
 		ArrayList<AffBean> affBeansList = new ArrayList<AffBean>();
 		AffBean affBean = new AffBean();
 		ArrayList<AffBean> totalCollegeList = new ArrayList<AffBean>();
@@ -391,6 +392,8 @@ public class AffDAO {
 				case Cell.CELL_TYPE_STRING:
 
 					break;
+				case Cell.CELL_TYPE_NUMERIC:
+					break;
 
 				}
 			}
@@ -399,22 +402,46 @@ public class AffDAO {
 			instName = r.getStringCellValue();
 
 			r = row.getCell(1);
-			instAddress = r.getStringCellValue();
+			try {
+				instAddress = r.getStringCellValue();
+			} catch (java.lang.NullPointerException e) {
+
+			}
 
 			r = row.getCell(2);
-			contactNum = (int) r.getNumericCellValue();
+			try {
+				contactNum = (int) r.getNumericCellValue();
+			} catch (java.lang.NullPointerException e) {
+
+			}
 
 			r = row.getCell(3);
-			ContactPerson = r.getStringCellValue();
+			try {
+				ContactPerson = r.getStringCellValue();
+			} catch (java.lang.NullPointerException e) {
+
+			}
 
 			r = row.getCell(4);
-			mobileNum = (int) r.getNumericCellValue();
+			try {
+				mobileNum = (int) r.getNumericCellValue();
+			} catch (java.lang.NullPointerException e) {
+
+			}
 
 			r = row.getCell(5);
-			email = r.getStringCellValue();
+			try {
+				email = r.getStringCellValue();
+			} catch (java.lang.NullPointerException e) {
+
+			}
 
 			r = row.getCell(6);
-			place = r.getStringCellValue();
+			try {
+				place = r.getStringCellValue();
+			} catch (java.lang.NullPointerException e) {
+
+			}
 
 			affBean.setInstName(instName);
 			affBean.setContactNumber(contactNum.toString());
@@ -424,8 +451,6 @@ public class AffDAO {
 			affBean.setInstAddress(instAddress);
 			affBean.setPlace(place);
 
-			affBeansList.add(affBean);
-			log.info("Parent " + affBean.getInstName());
 			addBulkData(affBean);
 
 		}
@@ -437,7 +462,8 @@ public class AffDAO {
 	// ---------------------------------------------------
 	// to save record into Database
 	public ArrayList<AffBean> addBulkData(AffBean affBean) throws InvalidKeyException, NoSuchAlgorithmException,
-			InvalidKeySpecException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, IOException {
+			InvalidKeySpecException, InvalidAlgorithmParameterException, IllegalBlockSizeException,
+			BadPaddingException, IOException {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		ArrayList<AffBean> collegeListFromDB = new ArrayList<AffBean>();
 		ArrayList<AffBean> notAddedCollegeList = new ArrayList<AffBean>();
@@ -445,7 +471,7 @@ public class AffDAO {
 		HttpSession httpSession = request.getSession();
 		LoginBean loginBean = (LoginBean) httpSession.getAttribute("loginUserBean");
 		String userprofile = httpSession.getAttribute("sesProfile").toString();
-		log.info("CHild " + affBean.getInstName());
+
 		if (collegeListFromDB.isEmpty()) {
 
 			String username;
@@ -480,43 +506,30 @@ public class AffDAO {
 			// for bidirectional relationship ,set parent record to child
 			// record
 			creds.setAffBean(affBean);
-
 			// one to one relationship
 
 			if (creds.getProfile().equals("Admin")) {
-
-				// for bidirectional relationship ,set child record to
-				// Parent
-				// record
 				affBean.setLoginBean(creds);
-
 			}
 
-			// ------------------------------
 			ParBean parBean1 = new ParBean();
-			// one to many Bidirectional relationship
-			Set<AffBean> affBeansSet = new HashSet<AffBean>();
-
 			parBean1 = parDAO.viewUniversity(loginBean.getParBean().getParInstId());
-			log.info("Parent Login is :: " + parBean1.getParInstId() + " ::: " + parBean1.getParInstName());
-			affBeansSet = parBean1.getAffBeanOneToManySet();
 
-			affBeansSet.add(affBean);
+			affBean.setParBeanManyToOne(parBean1);
+			parBean1.getAffBeanOneToManySet().add(affBean);
+			
+			// parDAO.saveOrUpdate(parBean1,
+															// null);
 
-			parBean1.setAffBeanOneToManySet(affBeansSet);
-
-			parDAO.saveOrUpdate(parBean1, null);
-			// ----------------------------
-
-			EmailSessionBean email = new EmailSessionBean();
-			email.sendEmail(affBean.getEmail(), "Welcome To Fee Collection Portal!", username, password,
-					affBean.getInstName());
 			Session session = factory.openSession();
 			Transaction tx = session.beginTransaction();
 			session.save(affBean);
 			tx.commit();
 			session.close();
 
+			EmailSessionBean email = new EmailSessionBean();
+			email.sendEmail(affBean.getEmail(), "Welcome To Fee Collection Portal!", username, password,
+					affBean.getInstName());
 		}
 		return notAddedCollegeList;
 	}
@@ -550,7 +563,7 @@ public class AffDAO {
 		return collegesTransactionList;
 
 	}
-	
+
 	public List<TransactionBean> getAllTransactionRecordsForSuper() {
 		Session session = factory.openSession();
 		Criteria criteria = session.createCriteria(TransactionBean.class);
@@ -559,5 +572,5 @@ public class AffDAO {
 		return collegesTransactionList;
 
 	}
-	
+
 }
