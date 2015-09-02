@@ -159,11 +159,11 @@
 													<th width="7%">Sr. No.</th>
 													<th>Fee Name</th>
 													<th></th>
-													<th>Net Due</th>
+													<th>Original Dues</th>
 													<th></th>
 													<th>Payment To Date</th>
 													<th></th>
-													<th colspan="2">Total_Fee_Amount</th>
+													<th colspan="2">Net Dues</th>
 
 
 												</tr>
@@ -183,13 +183,13 @@
 
 														<td></td>
 														<td class="center">Rs. <s:property
-																value="dueBean.netDue" default="0" /></td>
+																value="dueBean.total_fee_amount" default="0" /></td>
 														<td></td>
 														<td class="center">Rs. <s:property
 																value="dueBean.payments_to_date" default="0" /></td>
 														<td></td>
 														<td colspan="2" class="center">Rs. <s:property
-																value="dueBean.total_fee_amount" default="0" /></td>
+																value="dueBean.netDue" default="0" /></td>
 
 													</tr>
 
@@ -200,11 +200,11 @@
 												<tr>
 													<td></td>
 													<td></td>
-													<td><span style="font-weight: bold;">Net Due</span></td>
+													<td><span style="font-weight: bold;">Total Due</span></td>
 													<td><s:property value="netDues"/></td>
 													<td><span style="font-weight: bold;">PTD</span></td>
 													<td><s:property value="paymentToDate"/></td>
-													<td><span style="font-weight: bold;">TFA</span></td>
+													<td><span style="font-weight: bold;">TND</span></td>
 													<td colspan="2"><s:property value="totalDues"/></td>
 													
 
