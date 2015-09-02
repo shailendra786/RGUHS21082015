@@ -34,9 +34,9 @@ public class ApplicantFeeCollectionAction extends ActionSupport {
 	HttpServletResponse response = ServletActionContext.getResponse();
     ServletContext context=request.getServletContext();
     
-    public String SabPaisaURL = "localhost:2015";
-	public String returnUrl = "http://localhost:8080/RGUHS0.4/ReturnPage.jsp";
-	String clientFailureUrl = "http://localhost:8080/RGUHS0.4/Login.jsp";
+    public String SabPaisaURL = "49.50.72.228:8080";
+	public String returnUrl = "http://49.50.72.228:8080/RGUHS0.4/ReturnPage.jsp";
+	String clientFailureUrl = "http://49.50.72.228:8080/RGUHS0.4/Login.jsp";
 
 	HttpSession httpSession = request.getSession();
 	static Logger log = Logger.getLogger(ApplicantFeeCollectionAction.class.getName());
