@@ -304,7 +304,7 @@ ment-Summary.html">Proceed To
 															<span style="color: green; font: 50px;">Fees
 																Completed</span>
 														</s:elseif> <s:elseif test='%{#totalFees==0}'>
-														<span style="color: green; font: 50px;">Not 
+														<span style="color: bold; font: 50px;">Not 
 																Applicable</span>
 														</s:elseif> <%-- <button
 															onclick='window.open("getFeeCalcDetails?instId=<%=session.getAttribute("sesId").toString()%>&reqFeeId=<s:property value='feeId'/>","CalcDetails","height=768,width=1024")'
