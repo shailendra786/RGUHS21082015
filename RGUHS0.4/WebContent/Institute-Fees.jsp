@@ -289,18 +289,24 @@ ment-Summary.html">Proceed To
 															value="dueBean.total_fee_amount" default="0" /></td>
 													<td><s:property value="dueBean.payments_to_date"
 															default="0" /></td>
-													<td><s:property value="dueBean.netDue"
-															default="0" /></td>
+													<td><s:property value="dueBean.netDue" default="0" /></td>
 													<td class="center"><s:set var="dueAmt">
 															<s:property value="dueBean.netDue" default="0" />
+														</s:set> <s:set var="paymentToDate">
+															<s:property value="dueBean.payments_to_date" default="0" />
+														</s:set> <s:set var="totalFees">
+															<s:property value="dueBean.total_fee_amount" default="0" />
 														</s:set> <s:if test='%{#dueAmt >0}'>
 															<input type="button" class="btn btn-danger"
 																onclick="openPaymentGateway('<s:property value="dueBean.netDue" default="0"  />','<s:property value="feeName" />')"
 																value="Pay">
-														</s:if>
-														<s:elseif test='%{#dueAmt==0}'><span style="color:green;font: 50px;" >Fees Completed</span></s:elseif>
-														
-														 <%-- <button
+														</s:if> <s:elseif test='%{#dueAmt==0&&#paymentToDate>0}'>
+															<span style="color: green; font: 50px;">Fees
+																Completed</span>
+														</s:elseif> <s:elseif test='%{#totalFees==0}'>
+														<span style="color: green; font: 50px;">Not 
+																Applicable</span>
+														</s:elseif> <%-- <button
 															onclick='window.open("getFeeCalcDetails?instId=<%=session.getAttribute("sesId").toString()%>&reqFeeId=<s:property value='feeId'/>","CalcDetails","height=768,width=1024")'
 															class="btn btn-success btn-sm">Calculation
 															Details</button> --%></td>
