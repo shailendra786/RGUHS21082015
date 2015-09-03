@@ -322,11 +322,11 @@
 													<td></td>
 													<td></td>
 													<td><span style="font-weight: bold;">Total Due</span></td>
-													<td><s:property value="netDues" /></td>
+													<td><s:property value="totalDues" /></td>
 													<td><span style="font-weight: bold;">PTD</span></td>
 													<td><s:property value="paymentToDate" /></td>
 													<td><span style="font-weight: bold;">TND</span></td>
-													<td colspan="2"><s:property value="totalDues" /></td>
+													<td colspan="2"><s:property value="netDues " /></td>
 
 
 												</tr>
