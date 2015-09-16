@@ -18,6 +18,7 @@ import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 
 import com.dexpert.feecollection.main.users.affiliated.AffAction;
+import com.dexpert.feecollection.main.users.affiliated.AffDAO;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class LoginAction extends ActionSupport {
@@ -26,10 +27,11 @@ public class LoginAction extends ActionSupport {
 	HttpServletRequest request = ServletActionContext.getRequest();
 	HttpServletResponse response = ServletActionContext.getResponse();
 	static Logger log = Logger.getLogger(AffAction.class.getName());
-
+	AffDAO affDAO = new AffDAO();
 	HttpSession httpSession = ServletActionContext.getRequest().getSession();
 	LoginBean loginBean = new LoginBean();
 	LoginDAO loginDAO = new LoginDAO();
+	
 
 	// End of Global Variables
 
@@ -75,6 +77,8 @@ public class LoginAction extends ActionSupport {
 					httpSession.setAttribute("sesProfile", "Affiliated");
 					httpSession.setAttribute("dashLink", "index-College.jsp");
 					httpSession.setAttribute("sesId", lgbean.getAffBean().getInstId());
+					httpSession.setAttribute("duesArray",affDAO.getTotalDuesAndPaymentDoneOfCollege(lgbean.getAffBean()
+							.getInstId()));
 					return "college";
 				} else if (lgbean.getParBean() != null) {
 					log.info("Valid University");
@@ -133,5 +137,9 @@ public class LoginAction extends ActionSupport {
 	public void setLoginBean(LoginBean loginBean) {
 		this.loginBean = loginBean;
 	}
+
+	
+	
+	
 
 }

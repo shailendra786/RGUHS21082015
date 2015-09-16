@@ -14,10 +14,12 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.apache.poi.ss.usermodel.Cell;
@@ -32,9 +34,11 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+
 import com.dexpert.feecollection.challan.TransactionBean;
 import com.dexpert.feecollection.main.ConnectionClass;
 import com.dexpert.feecollection.main.communication.email.EmailSessionBean;
+import com.dexpert.feecollection.main.fee.PaymentDuesBean;
 import com.dexpert.feecollection.main.users.LoginBean;
 import com.dexpert.feecollection.main.users.PasswordEncryption;
 import com.dexpert.feecollection.main.users.RandomPasswordGenerator;
@@ -569,6 +573,34 @@ public class AffDAO {
 		session.close();
 		return collegesTransactionList;
 
+	}
+
+	public Double[] getTotalDuesAndPaymentDoneOfCollege(Integer collegeId) {
+		Double[] netDueAndPaymentDone=new Double[2];
+		Double paymentToDate=0.0;
+		Double netDues=0.0;
+		Session session = factory.openSession();
+		try{
+		AffBean affBean = (AffBean) session.get(AffBean.class, collegeId);
+		List<AffFeePropBean> dueList = new ArrayList<AffFeePropBean>(affBean.getFeeProps());
+		Iterator<AffFeePropBean> itr = dueList.iterator();
+		while (itr.hasNext()) {
+			PaymentDuesBean dues = itr.next().getDueBean();
+			Double netDuesFromDB = dues.getNetDue() == null ? 0.0 : dues.getNetDue();
+			netDues = netDues + netDuesFromDB;
+			log.info("Total Net Dues" + netDues);
+			Double paymentToDateFromDB = dues.getPayments_to_date() == null ? 0.0 : dues.getPayments_to_date();
+			paymentToDate = paymentToDate + paymentToDateFromDB;
+			log.info("Payment to date Net Dues" + paymentToDate);
+		}
+		}catch(Exception ex)
+		{
+		return netDueAndPaymentDone;
+		}
+		netDueAndPaymentDone[0]=netDues;
+		netDueAndPaymentDone[1]=paymentToDate;
+        return netDueAndPaymentDone;
+	
 	}
 
 }

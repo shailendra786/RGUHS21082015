@@ -587,6 +587,7 @@ public class AffAction extends ActionSupport {
 	// to get College Due Report
 
 	public String collegeDueReport() {
+		
 		String profile = (String) ses.getAttribute("sesProfile");
 		if (profile.contentEquals("Parent")) {
 			LoginBean loginUser = (LoginBean) ses.getAttribute("loginUserBean");

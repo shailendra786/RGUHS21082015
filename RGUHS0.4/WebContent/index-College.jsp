@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <%@page import="com.dexpert.feecollection.main.users.LoginBean"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <html lang="en">
 <head>
 <%
 	//checking session
 	LoginBean loginUser = new LoginBean();
-	loginUser = (LoginBean) session.getAttribute("loginUserBean"); String profile=(String)session.getAttribute("sesProfile");
+	loginUser = (LoginBean) session.getAttribute("loginUserBean");
+	String profile = (String) session.getAttribute("sesProfile");
 
 	if (loginUser == null) {
 		response.sendRedirect("Login.jsp");
@@ -85,7 +87,7 @@
 					class="icon-bar"></span>
 			</button>
 
-		<a href="http://www.feedesk.in/" target="blank"> <img
+			<a href="http://www.feedesk.in/" target="blank"> <img
 				alt="FeeDesk Logo" src="img/feeDesk_logo.png"
 				style="width: 150px; height: 53px; margin-left: 20px;" />
 			</a>
@@ -169,14 +171,14 @@
 								href='<%=session.getAttribute("dashLink").toString()%>'><i
 									class="glyphicon glyphicon-home"></i><span> Dashboard</span></a></li>
 							<%
-								if (profile.contentEquals("SU")){
+								if (profile.contentEquals("SU")) {
 							%><li><a class="ajax-link" href="UniversityDetailRecord"><i
 									class="fa fa-building"></i><span> Parent Institute</span></a></li>
 							<%
 								}
 							%>
 							<%
-								if (!profile.contentEquals("Affiliated")){
+								if (!profile.contentEquals("Affiliated")) {
 							%>
 							<li><a class="ajax-link" href="getCollegeList"><i
 									class="fa fa-building"></i><span> Affiliated Institutes</span></a></li>
@@ -184,14 +186,14 @@
 								}
 							%>
 							<%
-								if (profile.contentEquals("Affiliated")){
+								if (profile.contentEquals("Affiliated")) {
 							%><li><a class="ajax-link" href="StudentTotalRecord"><i
 									class="glyphicon glyphicon-home"></i><span> Student</span></a></li>
 							<%
 								}
 							%>
 							<%
-								if (!profile.contentEquals("Affiliated")){
+								if (!profile.contentEquals("Affiliated")) {
 							%>
 							<li><a class="ajax-link" href="Admin-FeeConfig.jsp"><i
 									class="fa fa-building"></i><span> Fee Configuration</span></a></li>
@@ -199,7 +201,7 @@
 								}
 							%>
 							<%
-								if (profile.contentEquals("Affiliated")){
+								if (profile.contentEquals("Affiliated")) {
 							%><li><a class="ajax-link" href="getInstDues"><i
 									class="fa fa-list-alt"></i><span> Fee Payment</span></a></li>
 							<%
@@ -227,7 +229,7 @@
 
 			<div id="content" class="col-lg-10 col-sm-10">
 				<!-- content starts -->
-				
+
 
 
 				<div class="row">
@@ -268,10 +270,38 @@
 						</div>
 					</div>
 				</div>
+				<!--/row-->
+				<div class=" row">
+					<div class="col-md-6 col-sm-6 col-xs-12">
+						<a data-toggle="tooltip"
+							title="1 new student requests. Click here to view"
+							class="well top-block" href="#"
+							onclick='window.open("CollegeDueReport?popUp=true", "Dail Report", "width=800,height=500");'>
+							<!-- <i class="glyphicon glyphicon-user blue"></i> --> <i
+							class="fa fa-inr green"></i> <%
+ 	                  Double[] dueArray = (Double[]) session.getAttribute("duesArray");
+                                        %>
+							<div>Total Dues Remaining</div>
+							<div><%=dueArray[0]%></div> <!-- <span class="notification">1</span> -->
+						</a>
+					</div>
 
+					<div class="col-md-6 col-sm-6 col-xs-12">
+						<a data-toggle="tooltip"
+							title="0 new payments by colleges. Click here to view"
+							class="well top-block" href="#"
+							onclick='window.open("CollegeDueReport?popUp=true", "University Report", "height=500,width=800")'>
+							<i class="fa fa-inr green"></i>
+
+							<div>Total Payments Done</div>
+							<div><%=dueArray[1]%></div> <!--  <span class="notification green">0</span> -->
+						</a>
+					</div>
+
+
+				</div>
 				<!--/row-->
 
-				<!--/row-->
 				<!-- content ends -->
 			</div>
 			<!--/#content.col-md-0-->
